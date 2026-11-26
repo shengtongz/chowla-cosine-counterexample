@@ -50,7 +50,7 @@ root. The angle `t` ranges over all of `ℝ`, which is the same as ranging over 
 
 Chowla's cosine problem asks for the largest `K(n)` such that every set of `n` positive
 integers has `min_t f_A(t) ≤ -K(n)`. It appears as Problem #510 on the Erdős Problems site
-(<https://www.erdosproblems.com/510>), which lists it as open (checked November 2026).
+(<https://www.erdosproblems.com/510>), which states the problem and summarizes earlier bounds.
 
 * **Lower bounds:**
   * Bourgain (*Sur le minimum d'une somme de cosinus*, Acta Arith. 45 (1986)) went beyond
@@ -72,8 +72,9 @@ None of these results contradicts Theorem 1. The sets built here have depth at m
 that no fixed multiple of `√|A|` is forced.
 
 The result and its proof are due to the manuscript cited above, and we make no independent
-claim of novelty or priority. A search of arXiv and of the Erdős Problems page found no
-earlier published counterexample. We know of no other public formalization of this result.
+claim of novelty or priority. A literature search of arXiv and the web in November 2026 found
+no earlier published counterexample. We know of no other public formalization of this
+result.
 
 ## How the proof is organized
 

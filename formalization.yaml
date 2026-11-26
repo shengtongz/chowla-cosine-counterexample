@@ -54,7 +54,7 @@ sources:
     type: "web discussion"
     id: "https://www.erdosproblems.com/510"
     relationship: "background"
-    note: "Current statement of the problem and summary of known bounds; lists the problem as open (checked November 2026)."
+    note: "Statement of the problem as Erdős Problem #510, with a summary of earlier bounds."
   - title: "Sur le minimum d'une somme de cosinus"
     authors:
       - "Jean Bourgain"
