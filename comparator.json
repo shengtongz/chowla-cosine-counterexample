@@ -1,6 +1,6 @@
 {
   "challenge_module": "Challenge",
   "solution_module": "Solution",
-  "theorem_names": ["cosine_counterexample", "chowla_cosine_conjecture_false"],
+  "theorem_names": ["Erdos510.erdos_510", "cosine_counterexample"],
   "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"]
 }

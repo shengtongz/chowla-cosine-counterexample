@@ -13,9 +13,11 @@ project:
     integers with f_A(t) > -eps sqrt(|A|) for every real t. The manuscript, including the
     counterexample and its proof, was produced by the AI model Astra 6.2, prompted by
     Shengtong Zhang. The Lean formalization was then written by Claude Opus 5.5 agents in
-    Cursor. Two theorems are compared:
-    `cosine_counterexample`, which states exactly this, and
-    `chowla_cosine_conjecture_false`, the negation of Chowla's conjecture. The proof
+    Cursor. Two theorems are compared. The main one, `Erdos510.erdos_510`, is the negation of
+    the statement of Erdős Problem #510 in Google DeepMind's formal-conjectures repository,
+    copied verbatim from FormalConjectures/ErdosProblems/510.lean at commit 7db2ea3 (where
+    it is tagged research open). The second, `cosine_counterexample`, is Theorem 1 of the
+    manuscript, which states exactly the result above. The proof
     follows the manuscript. A binary profile given by horizontal slices of an annulus is
     smoothed so that a Fourier multiplier in the logarithm of the radius (computed through
     the Laplace and Mellin transforms of the Bessel function J_0 and Legendre duplication)
@@ -55,7 +57,7 @@ sources:
     id: "J. Reine Angew. Math. 217 (1965), 128-132"
     location: "p. 130, eq. (14)"
     relationship: "background"
-    note: "States the conjecture that the compared theorem `chowla_cosine_conjecture_false` refutes."
+    note: "States the conjecture that the compared theorem `Erdos510.erdos_510` refutes."
   - title: "Erdős Problem #510 (Chowla's cosine problem)"
     type: "web discussion"
     id: "https://www.erdosproblems.com/510"
@@ -132,6 +134,13 @@ sources:
     id: "arXiv:2610.17160"
     relationship: "background"
     note: "Constructions with depth at most (1/2 + o(1)) sqrt(|A|), consistent with Chowla's conjecture; also the lower bound c |A|^(1/4) for A contained in [1, C|A|]."
+  - title: "Chowla's cosine problem with near-unit coefficients"
+    authors:
+      - "Knowledge Sense"
+    type: "preprint with Lean formalization"
+    id: "https://github.com/KnowledgeSense/math/tree/91f1bdd2a10abeb28acc742ce3ee884874caf124/preprints/Chowlas-Cosine-Problem-with-Near-Unit-Coefficients-October-12-2026"
+    relationship: "background"
+    note: "Preprint dated 12 October 2026: min_x sum_j s_j cos(2 pi a_j x) <= -N^(1/9)/20 for distinct positive integers a_j and s_j in [0.99, 1.01]; with all s_j = 1 this gives K(N) >= N^(1/9)/20 for every N >= 1."
   - title: "Six standard deviations suffice"
     authors:
       - "Joel Spencer"
@@ -146,7 +155,26 @@ sources:
     relationship: "background"
     note: "Integral representation and Mellin transform of J_0 cited by the manuscript for Lemma 2; the needed identities are proved in this repository."
 
-related_formalizations: []
+related_formalizations:
+  - id: "https://github.com/google-deepmind/formal-conjectures/blob/7db2ea3b91bfbd0ab620215163e6c488bbb916d5/FormalConjectures/ErdosProblems/510.lean"
+    relationship: "other"
+    note: >-
+      Statement of Erdős Problem #510 as Erdos510.erdos_510, tagged research open. The main
+      compared theorem of this repository is its negation, with the namespace, open
+      declarations and statement text copied verbatim from this file; following that
+      repository's convention for disproved problems, the theorem keeps the name
+      erdos_510. This repository does not depend on formal-conjectures.
+  - id: "https://github.com/KnowledgeSense/math/tree/91f1bdd2a10abeb28acc742ce3ee884874caf124/preprints/Chowlas-Cosine-Problem-with-Near-Unit-Coefficients-October-12-2026/lean"
+    relationship: "independent"
+    note: >-
+      Lean formalization of a lower bound for cosine sums with coefficients in [0.99, 1.01]
+      (minimum at most -N^(1/9)/20). It concerns the other side of the problem and is
+      consistent with the counterexample.
+  - id: "https://github.com/rjwalters/lean-genius/blob/15110ef2440acd23105e78d2dc522311736f1b75/proofs/Proofs/Erdos510WIP01.lean"
+    relationship: "independent"
+    note: >-
+      Work-in-progress file of elementary Lean lemmas about these cosine sums; it does not
+      address the conjecture itself.
 
 classification:
   arxiv:
@@ -162,7 +190,8 @@ classification:
 status:
   scope: >-
     Complete formalization of Theorem 1 of the manuscript and of the resulting negation of
-    Chowla's cosine conjecture. The quantitative form (1) of the manuscript, with
+    Chowla's cosine conjecture, in the form of the negation of the formal-conjectures
+    statement Erdos510.erdos_510. The quantitative form (1) of the manuscript, with
     A contained in [1, ceil(P T^2)], c1 P/T <= |A| <= c2 P/T and depth
     D(A) = -min_t f_A(t) <= C (log T) T^(-1/2) sqrt(|A|) for absolute constants c1, c2, C,
     is not exported as a separate theorem; the proof uses
@@ -174,7 +203,7 @@ status:
     - "Classical.choice"
     - "Quot.sound"
   main_results:
-    - declaration: "cosine_counterexample"
+    - declaration: "Erdos510.erdos_510"
       file: "Solution.lean"
       sorry_count: 0
       axioms:
@@ -182,7 +211,7 @@ status:
         - "Classical.choice"
         - "Quot.sound"
       comparator_config: "comparator.json"
-    - declaration: "chowla_cosine_conjecture_false"
+    - declaration: "cosine_counterexample"
       file: "Solution.lean"
       sorry_count: 0
       axioms:
@@ -222,10 +251,16 @@ automation:
 
 fidelity:
   divergences: >-
-    (1) Only the qualitative Theorem 1 is a compared theorem; see status.scope.
-    (2) Chowla's conjecture is stated with "there exists t with f_A(t) < -c sqrt(|A|)" in place
-    of "min_t f_A(t) < -c sqrt(|A|)"; these are equivalent because f_A is continuous and
-    periodic, so the minimum is attained.
+    (1) Of the manuscript's results, only the qualitative Theorem 1 is a compared theorem;
+    see status.scope.
+    (2) Chowla's conjecture enters through the formal-conjectures statement
+    Erdos510.erdos_510, which differs from the manuscript's formulation in presentation
+    only: it uses cos(n theta) with theta = 2 pi t, A : Finset N with 0 not in A instead of
+    a set of positive integers, "there exists theta with sum < -c sqrt(N)" in place of
+    "min_t f_A(t) < -c sqrt(|A|)" (equivalent because f_A is continuous and periodic, so
+    the minimum is attained), and asks for the bound only for all sufficiently large N.
+    The last point makes its negation stronger than the negation of the conjecture for
+    all A.
     (3) Lemma 2: the Mellin identity is proved by three explicit Fubini interchanges with
     Gamma-function integrals and Legendre duplication, instead of citing DLMF 10.22.43 and
     continuing analytically; the bound Gs = O(e^{-2s}) comes from |J_0(r) - 1| <= r^2/4.
@@ -253,7 +288,9 @@ review:
     orchestrating agent (the same model as the subagents, so not an independent reviewer)
     recompiled every component, confirmed that no sorry remains, checked #print axioms, and
     compared the Challenge statements with Theorem 1 of the manuscript and with Chowla's
-    formulation of the conjecture. Correctness of the proof rests on the Lean kernel.
+    formulation of the conjecture, and checked by a textual diff that the statement of
+    Erdos510.erdos_510 equals the formal-conjectures statement at commit 7db2ea3 apart from
+    the added negation. Correctness of the proof rests on the Lean kernel.
 
 alignment:
   namespace: "ChowlaOpus"
@@ -262,8 +299,8 @@ alignment:
       lean: "cosine_counterexample (Challenge.lean, Solution.lean); ChowlaOpus.main_theorem"
       module: "Challenge, Solution, ChowlaOpus.Main"
       status: "proved"
-    - source: "Chowla's conjecture (Chowla 1965, eq. (14)) is false"
-      lean: "chowla_cosine_conjecture_false"
+    - source: "Chowla's conjecture (Chowla 1965, eq. (14); Erdős Problem #510) is false"
+      lean: "Erdos510.erdos_510 (negation of the formal-conjectures statement)"
       module: "Challenge, Solution"
       status: "proved"
     - source: "Lemma 2 (Bessel transform, multiplier m(tau))"
