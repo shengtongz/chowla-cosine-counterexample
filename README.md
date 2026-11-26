@@ -3,6 +3,10 @@
 This repository is a complete Lean 4 / Mathlib formalization of a counterexample to
 Chowla's cosine conjecture [2], following the manuscript [1].
 
+**The manuscript [1], including the counterexample and its proof, was produced by the AI
+model Astra 6.2, prompted by Shengtong Zhang. The Lean formalization was then written by
+Claude Opus 5.5 agents in Cursor.**
+
 The proofs use only the axioms `propext`, `Classical.choice` and `Quot.sound`, and contain no
 `sorry`.
 
@@ -180,9 +184,12 @@ The proof follows [1] section by section. Throughout, $e(u) = e^{2\pi i u}$.
 
 ## Authorship, AI involvement and review
 
+**Who produced the mathematics:** Astra 6.2, prompted by Shengtong Zhang. The manuscript [1],
+including the counterexample and its proof, is its output.
+
 **Who wrote the code:** all Lean code in this repository was written by AI agents: Claude
 Opus 5.5 running in Cursor. Shengtong Zhang directed the work and is responsible for the
-repository. The mathematics comes from [1].
+repository.
 
 **How it was produced:**
 * An orchestrating agent read [1], wrote the shared definitions and split the
@@ -221,8 +228,9 @@ Apache-2.0; see `LICENSE`.
 
 ## References
 
-1. *A prime-square counterexample to Chowla's cosine conjecture*. Unpublished manuscript,
-   6 pages; not publicly available at the time of writing.
+1. Astra 6.2 (AI model), prompted by Shengtong Zhang, *A prime-square counterexample to
+   Chowla's cosine conjecture*. Unpublished manuscript, 6 pages; not publicly available at
+   the time of writing.
 2. S. Chowla, Some applications of a method of A. Selberg, *J. Reine Angew. Math.* **217**
    (1965), 128–132.
 3. Erdős Problem #510, <https://www.erdosproblems.com/510>.

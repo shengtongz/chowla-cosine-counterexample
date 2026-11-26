@@ -10,7 +10,10 @@ project:
     Problem #510). This project is a complete Lean 4 / Mathlib formalization of a
     counterexample from the manuscript "A prime-square counterexample to Chowla's cosine
     conjecture": for every eps > 0 there are arbitrarily large finite sets A of positive
-    integers with f_A(t) > -eps sqrt(|A|) for every real t. Two theorems are compared:
+    integers with f_A(t) > -eps sqrt(|A|) for every real t. The manuscript, including the
+    counterexample and its proof, was produced by the AI model Astra 6.2, prompted by
+    Shengtong Zhang. The Lean formalization was then written by Claude Opus 5.5 agents in
+    Cursor. Two theorems are compared:
     `cosine_counterexample`, which states exactly this, and
     `chowla_cosine_conjecture_false`, the negation of Chowla's conjecture. The proof
     follows the manuscript. A binary profile given by horizontal slices of an annulus is
@@ -33,14 +36,17 @@ project:
 
 sources:
   - title: "A prime-square counterexample to Chowla's cosine conjecture"
+    authors:
+      - "Astra 6.2 (AI model), prompted by Shengtong Zhang"
     type: "paper"
     id: "Unpublished manuscript (6 pages); not publicly available at the time of submission"
     location: "Theorem 1 and its proof: Lemma 2 (Section 1), Lemma 3 (Section 2), Sections 3-5, Lemma 4 (Section 6)"
     relationship: "formalizes"
     note: >-
-      The formalization follows the architecture of this manuscript. The manuscript carries
-      no author list and has no public identifier, so it cannot be independently confirmed
-      at the time of submission. Places where the Lean proof argues differently from the
+      The formalization follows the architecture of this manuscript. The manuscript,
+      including the counterexample and its proof, was produced by the AI model Astra 6.2,
+      prompted by Shengtong Zhang; the PDF itself carries no author list. It has no public
+      identifier, so it cannot be independently confirmed at the time of submission. Places where the Lean proof argues differently from the
       manuscript are listed under fidelity.divergences and in the README.
   - title: "Some applications of a method of A. Selberg"
     authors:
@@ -210,8 +216,9 @@ automation:
         three standard axioms. All Lean code was written by the agents; the human wrote none.
   notes: >-
     Shengtong Zhang directed the work and made the packaging decisions and is responsible
-    for the formalization; the mathematics comes from the manuscript cited in sources, and
-    the Lean code was produced by the AI agents described above.
+    for the formalization. The mathematics comes from the manuscript cited in sources, which
+    was produced by the AI model Astra 6.2, prompted by Shengtong Zhang. The Lean code was
+    produced by the Claude Opus 5.5 agents described above.
 
 fidelity:
   divergences: >-
