@@ -73,8 +73,9 @@ sources:
     authors:
       - "Tom Sanders"
     type: "paper"
-    id: "Israel J. Math. 179 (2010), 1-28; doi:10.1007/s11856-010-0071-4"
+    id: "Israel J. Math. 179 (2010), 1-28; doi:10.1007/s11856-010-0071-4; arXiv:0807.5104"
     relationship: "background"
+    note: "Among other results, a polynomial lower bound when every element of A is O(|A|)."
   - title: "From small eigenvalues to large cuts, and Chowla's cosine problem"
     authors:
       - "Zhihan Jin"
@@ -91,7 +92,28 @@ sources:
     type: "paper"
     id: "arXiv:2509.05260"
     relationship: "background"
-    note: "Polynomial lower bound |A|^(1/5 - o(1)) for the depth."
+    note: "Polynomial lower bound for the depth, exponent 1/7 in the first version and 1/5 - o(1) in a later version."
+  - title: "Lower bounds for the magnitude of the minimum eigenvalue of graphs with applications to MaxCut and Chowla's cosine problem"
+    authors:
+      - "Fredy Yip"
+    type: "paper"
+    id: "arXiv:2610.01657"
+    relationship: "background"
+    note: "Refines the spectral method of Jin, Milojević, Tomon and Zhang; lower bound with exponent 1/6.43."
+  - title: "A Log-Free n^{1/5} Bound for Chowla's Cosine Problem"
+    authors:
+      - "Abhishek Shankar"
+    type: "paper"
+    id: "arXiv:2609.05338"
+    relationship: "background"
+    note: "Lower bound c |A|^(1/5) without the o(1) loss."
+  - title: "A Quarter-Power Bound for Chowla's Cosine Problem"
+    authors:
+      - "Abhishek Shankar"
+    type: "paper"
+    id: "arXiv:2611.11144"
+    relationship: "background"
+    note: "Lower bound (|A| / log 2|A|)^(1/4), the strongest general lower bound found in our literature search."
   - title: "A Half-Constant Upper Bound for Chowla's Cosine Problem"
     authors:
       - "Bryan Bu"
@@ -103,7 +125,7 @@ sources:
     type: "paper"
     id: "arXiv:2610.17160"
     relationship: "background"
-    note: "Constructions with depth (1/2 + o(1)) sqrt(|A|); consistent with Chowla's conjecture."
+    note: "Constructions with depth (1/2 + o(1)) sqrt(|A|), consistent with Chowla's conjecture; also the lower bound c |A|^(1/4) for A contained in [1, C|A|]."
   - title: "Six standard deviations suffice"
     authors:
       - "Joel Spencer"

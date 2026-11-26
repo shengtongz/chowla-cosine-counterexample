@@ -1,8 +1,7 @@
 # A counterexample to Chowla's cosine conjecture, in Lean
 
 This repository is a complete Lean 4 / Mathlib formalization of a counterexample to
-Chowla's cosine conjecture, following the manuscript *A prime-square counterexample to
-Chowla's cosine conjecture* (unpublished at the time of writing).
+Chowla's cosine conjecture [2], following the manuscript [1].
 
 The proofs use only the axioms `propext`, `Classical.choice` and `Quot.sound`, and contain no
 `sorry`.
@@ -13,9 +12,8 @@ For a finite set `A` of positive integers write
 
   f_A(t) = ∑_{a ∈ A} cos(2π a t).
 
-Chowla conjectured in 1965 (S. Chowla, *Some applications of a method of A. Selberg*,
-J. Reine Angew. Math. 217 (1965), 128–132, p. 130, eq. (14)) that there is an absolute
-constant `c > 0` such that every nonempty `A` satisfies `min_t f_A(t) < -c √|A|`.
+Chowla conjectured in 1965 [2, p. 130, eq. (14)] that there is an absolute constant `c > 0`
+such that every nonempty `A` satisfies `min_t f_A(t) < -c √|A|`.
 
 `Challenge.lean` imports only Mathlib and states two theorems, which `Solution.lean` proves:
 
@@ -33,7 +31,7 @@ theorem chowla_cosine_conjecture_false :
 
 In words:
 
-* `cosine_counterexample` is Theorem 1 of the manuscript. For every `ε > 0` and every `N`
+* `cosine_counterexample` is Theorem 1 of [1]. For every `ε > 0` and every `N`
   there is a finite set `A` of positive integers with at least `N` elements such that
   `f_A(t) > -ε √|A|` for every real `t`. So there are arbitrarily large such sets.
 * `chowla_cosine_conjecture_false` says that no constant `c > 0` works in Chowla's
@@ -49,32 +47,35 @@ root. The angle `t` ranges over all of `ℝ`, which is the same as ranging over 
 ## Relation to the literature
 
 Chowla's cosine problem asks for the largest `K(n)` such that every set of `n` positive
-integers has `min_t f_A(t) ≤ -K(n)`. It appears as Problem #510 on the Erdős Problems site
-(<https://www.erdosproblems.com/510>), which states the problem and summarizes earlier bounds.
+integers has `min_t f_A(t) ≤ -K(n)`. It is also Problem #510 on the Erdős Problems site [3].
 
 * **Lower bounds:**
-  * Bourgain (*Sur le minimum d'une somme de cosinus*, Acta Arith. 45 (1986)) went beyond
+  * Bourgain [4] proved `K(n) ≥ exp((log n)^c)` for some `c > 0`, the first bound beyond
     powers of `log n`.
-  * Ruzsa (*Negative values of cosine sums*, Acta Arith. 111 (2004)) proved
-    `K(n) ≥ exp(c √log n)`.
-  * Sanders (*Chowla's cosine problem*, Israel J. Math. 179 (2010)) proved, among other
-    results, a polynomial bound when every element of `A` is `O(n)`.
-  * The first polynomial bounds were found independently by Jin, Milojević, Tomon and Zhang
-    (arXiv:2509.03490, exponent `1/10 - o(1)`) and by Bedert (arXiv:2509.05260, exponent
-    `1/5 - o(1)`).
-* **Upper bounds:** sets of the form `B - B` with `B` a Sidon set have depth of order `√n`.
-  A recent construction (Bu, Khan, Yi, Jha, Chandupatla, Nagpal, arXiv:2610.17160) achieves
-  depth `(1/2 + o(1)) √n`.
+  * Ruzsa [5] improved this to `K(n) ≥ exp(c √log n)`.
+  * Sanders [6] proved, among other results, a polynomial bound when every element of `A`
+    is `O(n)`.
+  * The first polynomial bounds were proved independently by Jin, Milojević, Tomon and
+    Zhang [7], with exponent `1/10 − o(1)`, and by Bedert [8]. Bedert's first version gave
+    exponent `1/7`, and a later version gives `1/5 − o(1)`.
+  * These bounds have since been improved:
+    * Yip [9] refines the spectral method of [7] and obtains exponent `1/6.43`.
+    * Shankar [10] removes the `o(1)` loss and proves `K(n) ≥ c n^{1/5}`.
+    * Bu, Khan, Yi, Jha, Chandupatla and Nagpal [11] prove `K(A) ≥ c n^{1/4}` for
+      `n`-element sets `A ⊂ [1, Cn]`. Here `K(A) = −min_t f_A(t)`.
+    * Shankar [12] proves `K(n) ≫ (n / log 2n)^{1/4}`, the strongest general lower bound we
+      found.
+* **Upper bounds:** sets of the form `B − B` with `B` a Sidon set have depth of order
+  `√n`. The construction of [11] achieves depth `(1/2 + o(1)) √n`.
 
-None of these results contradicts Theorem 1. The sets built here have depth at most
-`C (log T) T^{-1/2} √|A|` for a parameter `T`, which is still of order `√|A|` for each fixed
-`T`. They are therefore consistent with every polynomial lower bound above, but they show
-that no fixed multiple of `√|A|` is forced.
+None of these results contradicts Theorem 1. The sets built in [1] have depth at most
+`C (log T) T^{−1/2} √|A|` for a parameter `T`. For each fixed `T` this is still of order
+`√|A|`, so the sets are consistent with every lower bound above. What they show is that no
+fixed multiple of `√|A|` is forced.
 
-The result and its proof are due to the manuscript cited above, and we make no independent
-claim of novelty or priority. A literature search of arXiv and the web in November 2026 found
-no earlier published counterexample. We know of no other public formalization of this
-result.
+The result and its proof are due to [1], and we make no independent claim of novelty or
+priority. A literature search of arXiv and the web in November 2026 found no earlier
+published counterexample. We know of no other public formalization of this result.
 
 ## How the proof is organized
 
@@ -84,7 +85,7 @@ result.
 restates that theorem with the cosine sum written out. The shared definitions are in
 `ChowlaOpus/Basic.lean` and `ChowlaOpus/Profile/Defs.lean`.
 
-The proof follows the manuscript section by section.
+The proof follows [1] section by section.
 
 1. **Lemma 2: the Bessel transform.** This is in `Parts/J0.lean` and `Parts/Mellin.lean`,
    which cover:
@@ -122,25 +123,25 @@ The proof follows the manuscript section by section.
    `Parts/W10.lean` the mass and variance estimates (10). `Parts/AsmB.lean` assembles the
    weights.
 7. **Lemma 4: rounding to a set.** `Parts/Partial.lean` proves a partial-colouring lemma,
-   and `Parts/Spencer.lean` iterates it to get Spencer's theorem. `Parts/Mesh.lean` extends
+   and `Parts/Spencer.lean` iterates it to get Spencer's theorem [14]. `Parts/Mesh.lean` extends
    bounds from a mesh to the whole circle. `Parts/Rounding.lean` does the dyadic rounding,
    and `Parts/MainOf.lean` chooses the parameters and finishes the proof.
 
-### Where the Lean proof differs from the manuscript
+### Where the Lean proof differs from [1]
 
-* Only the qualitative Theorem 1 is a compared theorem. The quantitative form (1) is not
-  exported, although the proof uses estimates of that shape internally, with unspecified
+* Only the qualitative Theorem 1 is a compared theorem. The quantitative form (1) of [1] is
+  not exported, although the proof uses estimates of that shape internally, with unspecified
   constants.
-* **Lemma 2:** the Mellin identity is proved directly instead of citing DLMF 10.22.43 and
-  continuing analytically.
+* **Lemma 2:** the Mellin identity is proved directly instead of citing [13, eq. 10.22.43]
+  and continuing analytically.
 * **Kernel character:** it is defined as `u ↦ ψ(1 − u^{p−1})`, where `ψ` is the standard
-  additive character of `ℤ/p²ℤ`. This equals the manuscript's `χ₀`, built from the Fermat
-  quotient.
+  additive character of `ℤ/p²ℤ`. This equals the character `χ₀` of [1], built from the
+  Fermat quotient.
 * **Phase approximation:** the proof averages an explicit nonnegative trigonometric kernel
   over characters of the form `ξ²`, which are automatically even. It uses orthogonality of
   Dirichlet characters instead of Haar equidistribution and approximation by trigonometric
   polynomials.
-* **Lemma 4:** Spencer's theorem is proved rather than cited.
+* **Lemma 4:** Spencer's theorem [14] is proved rather than cited.
 * **Mesh bound:** the extension from a mesh to the circle uses a discrete de la
   Vallée-Poussin interpolation identity with constant 2, for meshes of at least `4N`
   points, instead of Bernstein's inequality.
@@ -152,10 +153,10 @@ The proof follows the manuscript section by section.
 
 **Who wrote the code:** all Lean code in this repository was written by AI agents: Claude
 Opus 5.5 running in Cursor. Shengtong Zhang directed the work and is responsible for the
-repository. The mathematics comes from the manuscript cited above.
+repository. The mathematics comes from [1].
 
 **How it was produced:**
-* An orchestrating agent read the manuscript, wrote the shared definitions and split the
+* An orchestrating agent read [1], wrote the shared definitions and split the
   proof into the statements in `ChowlaOpus/Statements.lean`.
 * 24 parallel subagents, running the same model, each proved one component.
 * The orchestrator recompiled every component, checked for `sorry`, ran `#print axioms`, and
@@ -188,3 +189,29 @@ check that `Solution.lean` proves the statements of `Challenge.lean` using only 
 ## Licence
 
 Apache-2.0; see `LICENSE`.
+
+## References
+
+1. *A prime-square counterexample to Chowla's cosine conjecture*. Unpublished manuscript,
+   6 pages; not publicly available at the time of writing.
+2. S. Chowla, Some applications of a method of A. Selberg, *J. Reine Angew. Math.* **217**
+   (1965), 128–132.
+3. Erdős Problem #510, <https://www.erdosproblems.com/510>.
+4. J. Bourgain, Sur le minimum d'une somme de cosinus, *Acta Arith.* **45** (1986), 381–389.
+5. I. Z. Ruzsa, Negative values of cosine sums, *Acta Arith.* **111** (2004), 179–186.
+6. T. Sanders, Chowla's cosine problem, *Israel J. Math.* **179** (2010), 1–28;
+   arXiv:0807.5104.
+7. Z. Jin, A. Milojević, I. Tomon and S. Zhang, From small eigenvalues to large cuts, and
+   Chowla's cosine problem, arXiv:2509.03490 (2025).
+8. B. Bedert, Polynomial bounds for the Chowla cosine problem, arXiv:2509.05260 (2025).
+9. F. Yip, Lower bounds for the magnitude of the minimum eigenvalue of graphs with
+   applications to MaxCut and Chowla's cosine problem, arXiv:2610.01657 (2026).
+10. A. Shankar, A log-free `n^{1/5}` bound for Chowla's cosine problem, arXiv:2609.05338
+    (2026).
+11. B. Bu, F. Khan, H. Yi, A. Jha, I. Chandupatla and M. Nagpal, A half-constant upper bound
+    for Chowla's cosine problem, arXiv:2610.17160 (2026).
+12. A. Shankar, A quarter-power bound for Chowla's cosine problem, arXiv:2611.11144 (2026).
+13. NIST Digital Library of Mathematical Functions, Sections 10.9 and 10.22,
+    <https://dlmf.nist.gov/10>.
+14. J. Spencer, Six standard deviations suffice, *Trans. Amer. Math. Soc.* **289** (1985),
+    679–706.
