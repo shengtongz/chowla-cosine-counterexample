@@ -1,4 +1,4 @@
-# A prime-square counterexample to Chowla's cosine conjecture, in Lean
+# A counterexample to Chowla's cosine conjecture, in Lean
 
 This repository is a complete Lean 4 / Mathlib formalization of a counterexample to
 Chowla's cosine conjecture, following the manuscript *A prime-square counterexample to

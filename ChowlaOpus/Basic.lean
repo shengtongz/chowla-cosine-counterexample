@@ -5,7 +5,7 @@ public import Mathlib
 @[expose] public section
 
 /-!
-# Basic notation for the prime-square counterexample to Chowla's cosine conjecture
+# Basic notation for the counterexample to Chowla's cosine conjecture
 
 Notation shared by all components: `ee x = exp(2πix)`, the cosine sum `cosineSum`,
 multiplicative independence, trigonometric polynomials in several variables, Fejér

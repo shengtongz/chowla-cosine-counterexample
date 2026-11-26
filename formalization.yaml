@@ -2,7 +2,7 @@
 version: "v0.4"
 
 project:
-  name: "A prime-square counterexample to Chowla's cosine conjecture"
+  name: "A counterexample to Chowla's cosine conjecture"
   description: >-
     For a finite set A of positive integers let f_A(t) = sum over a in A of cos(2 pi a t).
     Chowla conjectured in 1965 that there is an absolute constant c > 0 such that every
