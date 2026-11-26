@@ -4,8 +4,8 @@ version: "v0.4"
 project:
   name: "A counterexample to Chowla's cosine conjecture"
   description: >-
-    For a finite set A of positive integers let f_A(t) = sum over a in A of cos(2 pi a t).
-    Chowla conjectured in 1965 that there is an absolute constant c > 0 such that every
+    For a finite set A of positive integers let f_A(t) = sum over a in A of cos(2 pi a t),
+    and call D(A) = -min_t f_A(t) the depth of A. Chowla conjectured in 1965 that there is an absolute constant c > 0 such that every
     nonempty A satisfies min_t f_A(t) < -c sqrt(|A|) (Chowla's cosine problem; Erdős
     Problem #510). This project is a complete Lean 4 / Mathlib formalization of a
     counterexample from the manuscript "A prime-square counterexample to Chowla's cosine
@@ -125,7 +125,7 @@ sources:
     type: "paper"
     id: "arXiv:2610.17160"
     relationship: "background"
-    note: "Constructions with depth (1/2 + o(1)) sqrt(|A|), consistent with Chowla's conjecture; also the lower bound c |A|^(1/4) for A contained in [1, C|A|]."
+    note: "Constructions with depth at most (1/2 + o(1)) sqrt(|A|), consistent with Chowla's conjecture; also the lower bound c |A|^(1/4) for A contained in [1, C|A|]."
   - title: "Six standard deviations suffice"
     authors:
       - "Joel Spencer"
@@ -157,8 +157,9 @@ status:
   scope: >-
     Complete formalization of Theorem 1 of the manuscript and of the resulting negation of
     Chowla's cosine conjecture. The quantitative form (1) of the manuscript, with
-    A contained in [1, ceil(P T^2)], |A| comparable to P/T and depth at most
-    C (log T) T^(-1/2) sqrt(|A|), is not exported as a separate theorem; the proof uses
+    A contained in [1, ceil(P T^2)], c1 P/T <= |A| <= c2 P/T and depth
+    D(A) = -min_t f_A(t) <= C (log T) T^(-1/2) sqrt(|A|) for absolute constants c1, c2, C,
+    is not exported as a separate theorem; the proof uses
     estimates of this shape internally, with unspecified constants.
   sorry_count: 0
   sorry_in_definitions: 0

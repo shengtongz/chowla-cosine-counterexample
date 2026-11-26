@@ -46,8 +46,20 @@ root. The angle `t` ranges over all of `ℝ`, which is the same as ranging over 
 
 ## Relation to the literature
 
-Chowla's cosine problem asks for the largest `K(n)` such that every set of `n` positive
-integers has `min_t f_A(t) ≤ -K(n)`. It is also Problem #510 on the Erdős Problems site [3].
+For a finite nonempty set `A` of positive integers, define the *depth* of `A` as
+
+  D(A) = −min_t f_A(t),
+
+the amount by which the cosine sum drops below zero. The depth is always positive, because
+`f_A` is continuous, has mean `0` over a period, and is not identically zero (`f_A(0) = |A|`).
+Chowla's cosine problem asks for the smallest depth of an `n`-element set,
+
+  K(n) = inf { D(A) : A ⊂ ℤ_{>0}, |A| = n }.
+
+In this notation Chowla's conjecture says that `K(n) ≥ c√n` for some `c > 0` and all `n`.
+The problem is also Problem #510 on the Erdős Problems site [3]. Below, `c` and `C` denote
+positive constants, and the asymptotic notation `O`, `Ω`, `Θ` and `o` refers to
+`n = |A| → ∞`.
 
 * **Lower bounds:**
   * Bourgain [4] proved `K(n) ≥ exp((log n)^c)` for some `c > 0`, the first bound beyond
@@ -61,17 +73,26 @@ integers has `min_t f_A(t) ≤ -K(n)`. It is also Problem #510 on the Erdős Pro
   * These bounds have since been improved:
     * Yip [9] refines the spectral method of [7] and obtains exponent `1/6.43`.
     * Shankar [10] removes the `o(1)` loss and proves `K(n) ≥ c n^{1/5}`.
-    * Bu, Khan, Yi, Jha, Chandupatla and Nagpal [11] prove `K(A) ≥ c n^{1/4}` for
-      `n`-element sets `A ⊂ [1, Cn]`. Here `K(A) = −min_t f_A(t)`.
-    * Shankar [12] proves `K(n) ≫ (n / log 2n)^{1/4}`, the strongest general lower bound we
-      found.
-* **Upper bounds:** sets of the form `B − B` with `B` a Sidon set have depth of order
-  `√n`. The construction of [11] achieves depth `(1/2 + o(1)) √n`.
+    * Bu, Khan, Yi, Jha, Chandupatla and Nagpal [11] prove `D(A) ≥ c n^{1/4}` for
+      `n`-element sets `A ⊂ [1, Cn]`.
+    * Shankar [12] proves `K(n) = Ω((n / log 2n)^{1/4})`, the strongest general lower bound
+      we found.
+* **Upper bounds:** let `B` be a Sidon set and let `A` be the set of positive elements of
+  `B − B`. Then `|A| = |B|(|B| − 1)/2` and
 
-None of these results contradicts Theorem 1. The sets built in [1] have depth at most
-`C (log T) T^{−1/2} √|A|` for a parameter `T`. For each fixed `T` this is still of order
-`√|A|`, so the sets are consistent with every lower bound above. What they show is that no
-fixed multiple of `√|A|` is forced.
+    f_A(t) = (|∑_{b ∈ B} e^{2πibt}|² − |B|) / 2 ≥ −|B| / 2,
+
+  so `D(A) ≤ (1/√2 + o(1)) √|A|`. The construction of [11] lowers the constant: it gives
+  sets with `D(A) ≤ (1/2 + o(1)) √|A|`.
+
+Theorem 1 is consistent with all of these results. For each sufficiently large parameter `T`,
+the construction of [1] gives arbitrarily large sets `A` such that
+
+  c₁ P/T ≤ |A| ≤ c₂ P/T  and  D(A) ≤ C (log T) T^{−1/2} √|A|,
+
+where `P = p²` is a prime square and `c₁`, `c₂`, `C` are absolute constants. Choosing `T` with `C (log T) T^{−1/2} < ε` gives Theorem 1. So for
+every `c > 0` there are infinitely many `n` with `K(n) < c√n`, and `K(n) = Θ(√n)` is false.
+The lower bounds above that hold for all sets are `O(n^{1/4})`, far below this.
 
 The result and its proof are due to [1], and we make no independent claim of novelty or
 priority. A literature search of arXiv and the web in November 2026 found no earlier
@@ -104,7 +125,7 @@ The proof follows [1] section by section.
    * `Parts/Coeff.lean` bounds the coefficients `b_l` and the mass `H`.
    * `Parts/W.lean` gives the representation of `W` and the bound `0 ≤ W ≤ 1`.
    * `Parts/Q.lean` proves that `Q̂ ≥ 0`.
-   * `Parts/Var.lean` proves the variance bound `V ≪ (log T)/T³`.
+   * `Parts/Var.lean` proves the variance bound `V ≤ C (log T)/T³`.
 
    `Parts/AsmA.lean` combines them. The parameters are `h = T⁻²`, `X = T²` and Fejér degree
    `J = ⌈T⁸⌉`.
