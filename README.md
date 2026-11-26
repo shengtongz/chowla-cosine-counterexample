@@ -13,7 +13,7 @@ For a finite set $A$ of positive integers write
 $$f_A(t) = \sum_{a \in A} \cos(2\pi a t).$$
 
 Chowla conjectured in 1965 [2, p. 130, eq. (14)] that there is an absolute constant $c > 0$
-such that every nonempty $A$ satisfies $\min_t f_A(t) < -c\sqrt{|A|}$.
+such that every nonempty $A$ satisfies $\min_t f_A(t) < -c\sqrt{\lvert A \rvert}$.
 
 `Challenge.lean` imports only Mathlib and states two theorems, which `Solution.lean` proves:
 
@@ -33,12 +33,12 @@ In words:
 
 * `cosine_counterexample` is Theorem 1 of [1]. For every $\varepsilon > 0$ and every $N$
   there is a finite set $A$ of positive integers with at least $N$ elements such that
-  $f_A(t) > -\varepsilon\sqrt{|A|}$ for every real $t$. So there are arbitrarily large such
+  $f_A(t) > -\varepsilon\sqrt{\lvert A \rvert}$ for every real $t$. So there are arbitrarily large such
   sets.
 * `chowla_cosine_conjecture_false` says that no constant $c > 0$ works in Chowla's
   conjecture. Taking $\varepsilon = c$ in Theorem 1 gives a nonempty set whose cosine sum
-  never drops below $-c\sqrt{|A|}$. The conjecture is stated with "there is a real $t$ with
-  $f_A(t) < -c\sqrt{|A|}$". This is equivalent to $\min_t f_A(t) < -c\sqrt{|A|}$ because
+  never drops below $-c\sqrt{\lvert A \rvert}$. The conjecture is stated with "there is a real $t$ with
+  $f_A(t) < -c\sqrt{\lvert A \rvert}$". This is equivalent to $\min_t f_A(t) < -c\sqrt{\lvert A \rvert}$ because
   $f_A$ is continuous and $1$-periodic, so its minimum is attained.
 
 Conventions: `ℕ+` is Mathlib's type of positive integers, and `a : ℕ+` is cast to `ℝ`
@@ -54,14 +54,14 @@ $$D(A) = -\min_{t \in \mathbb{R}} f_A(t),$$
 
 the amount by which the cosine sum drops below zero. The depth is always positive, because
 $f_A$ is continuous, has mean $0$ over a period, and is not identically zero
-($f_A(0) = |A|$). Chowla's cosine problem asks for the smallest depth of an $n$-element set,
+($f_A(0) = \lvert A \rvert$). Chowla's cosine problem asks for the smallest depth of an $n$-element set,
 
-$$K(n) = \inf \lbrace D(A) : A \subset \mathbb{Z}_{>0},\ |A| = n \rbrace.$$
+$$K(n) = \inf \lbrace D(A) : A \subset \mathbb{Z}_{>0},\ \lvert A \rvert = n \rbrace.$$
 
 In this notation Chowla's conjecture says that $K(n) \ge c\sqrt{n}$ for some $c > 0$ and all
 $n$. The problem is also Problem #510 on the Erdős Problems site [3]. Below, $c$ and $C$
 denote positive constants, and the asymptotic notation $O$, $\Omega$, $\Theta$ and $o$
-refers to $n = |A| \to \infty$.
+refers to $n = \lvert A \rvert \to \infty$.
 
 **Lower bounds.**
 
@@ -78,21 +78,21 @@ refers to $n = |A| \to \infty$.
   * Shankar [10] removes the $o(1)$ loss and proves $K(n) \ge c n^{1/5}$.
   * Bu, Khan, Yi, Jha, Chandupatla and Nagpal [11] prove $D(A) \ge c n^{1/4}$ for
     $n$-element sets $A \subset [1, Cn]$.
-  * Shankar [12] proves $K(n) = \Omega\bigl((n / \log 2n)^{1/4}\bigr)$, the strongest
+  * Shankar [12] proves $K(n) = \Omega\bigl((n / \log(2n))^{1/4}\bigr)$, the strongest
     general lower bound we found.
 
 **Upper bounds.** Let $B$ be a Sidon set and let $A$ be the set of positive elements of
-$B - B$. Then $|A| = |B|(|B| - 1)/2$ and
+$B - B$. Then $\lvert A \rvert = \lvert B \rvert(\lvert B \rvert - 1)/2$ and
 
-$$f_A(t) = \frac{1}{2}\left(\left|\sum_{b \in B} e^{2\pi i b t}\right|^2 - |B|\right) \ge -\frac{|B|}{2},$$
+$$f_A(t) = \frac{1}{2}\left(\left|\sum_{b \in B} e^{2\pi i b t}\right|^2 - \lvert B \rvert\right) \ge -\frac{\lvert B \rvert}{2},$$
 
-so $D(A) \le (1/\sqrt{2} + o(1))\sqrt{|A|}$. The construction of [11] lowers the constant: it
-gives sets with $D(A) \le (1/2 + o(1))\sqrt{|A|}$.
+so $D(A) \le (1/\sqrt{2} + o(1))\sqrt{\lvert A \rvert}$. The construction of [11] lowers the constant: it
+gives sets with $D(A) \le (1/2 + o(1))\sqrt{\lvert A \rvert}$.
 
 Theorem 1 is consistent with all of these results. For each sufficiently large parameter $T$,
 the construction of [1] gives arbitrarily large sets $A$ such that
 
-$$c_1 \frac{P}{T} \le |A| \le c_2 \frac{P}{T} \quad \text{and} \quad D(A) \le C \frac{\log T}{\sqrt{T}} \sqrt{|A|},$$
+$$c_1 \frac{P}{T} \le \lvert A \rvert \le c_2 \frac{P}{T} \quad \text{and} \quad D(A) \le C \frac{\log T}{\sqrt{T}} \sqrt{\lvert A \rvert},$$
 
 where $P = p^2$ is a prime square and $c_1$, $c_2$, $C$ are absolute constants. Choosing $T$
 with $C (\log T)/\sqrt{T} < \varepsilon$ gives Theorem 1. So for every $c > 0$ there are
@@ -115,11 +115,11 @@ The proof follows [1] section by section. Throughout, $e(u) = e^{2\pi i u}$.
 
 1. **Lemma 2: the Bessel transform.** This is in `Parts/J0.lean` and `Parts/Mellin.lean`,
    which cover:
-   * the function $J_0$, its bounds and decay $|J_0(r)| \le 3/\sqrt{r}$, and its Laplace
+   * the function $J_0$, its bounds and decay $\lvert J_0(r) \rvert \le 3/\sqrt{r}$, and its Laplace
      transform;
    * the plane-wave formula (2) for $G_s$;
    * the multiplier $m(\tau) = 2^{i\tau} \Gamma(1 + i\tau/2)/\Gamma(1 - i\tau/2)$, with
-     $|m| = 1$;
+     $\lvert m \rvert = 1$;
    * the identity $\widetilde{G}(\tau, x) = m(\tau) \widetilde{B}(\tau, x)$.
 
    The identity is proved by three Fubini interchanges, Gamma integrals and Legendre
