@@ -100,7 +100,7 @@ sources:
     type: "paper"
     id: "arXiv:2509.05260"
     relationship: "background"
-    note: "Polynomial lower bound for the depth, exponent 1/7 in the first version and 1/5 - o(1) in a later version."
+    note: "Polynomial lower bound for the depth: exponent 1/12 in the first version, 1/7 - o(1) in the second, and 1/5 - o(1) in a later version."
   - title: "Lower bounds for the magnitude of the minimum eigenvalue of graphs with applications to MaxCut and Chowla's cosine problem"
     authors:
       - "Fredy Yip"
@@ -137,7 +137,7 @@ sources:
   - title: "Chowla's cosine problem with near-unit coefficients"
     authors:
       - "Knowledge Sense"
-    type: "preprint with Lean formalization"
+    type: "paper"
     id: "https://github.com/KnowledgeSense/math/tree/91f1bdd2a10abeb28acc742ce3ee884874caf124/preprints/Chowlas-Cosine-Problem-with-Near-Unit-Coefficients-October-12-2026"
     relationship: "background"
     note: "Preprint dated 12 October 2026: min_x sum_j s_j cos(2 pi a_j x) <= -N^(1/9)/20 for distinct positive integers a_j and s_j in [0.99, 1.01]; with all s_j = 1 this gives K(N) >= N^(1/9)/20 for every N >= 1."

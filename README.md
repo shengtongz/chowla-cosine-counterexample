@@ -98,7 +98,7 @@ $\Theta$ and $o$ refers to $n = \lvert A \rvert \to \infty$.
   $O(n)$.
 * The first polynomial bounds were proved independently by Jin, Milojević, Tomon and
   Zhang [8], with exponent $1/10 - o(1)$, and by Bedert [9]. Bedert's first version gave
-  exponent $1/7$, and a later version gives $1/5 - o(1)$.
+  exponent $1/12$, the second $1/7 - o(1)$, and a later version gives $1/5 - o(1)$.
 * These bounds have since been improved:
   * Yip [10] refines the spectral method of [8] and obtains exponent $1/6.43$.
   * Shankar [11] removes the $o(1)$ loss and proves $K(n) \ge c n^{1/5}$.
@@ -239,7 +239,8 @@ repository.
 **How it was produced:**
 * An orchestrating agent read [1], wrote the shared definitions and split the
   proof into the statements in `ChowlaOpus/Statements.lean`.
-* 24 parallel subagents, running the same model, each proved one component.
+* 24 parallel subagents, running the same model, each proved one or two of the component
+  files in `ChowlaOpus/Parts/`.
 * The orchestrator recompiled every component, checked for `sorry`, ran `#print axioms`, and
   assembled the result.
 * The orchestrator then ported the files to the Lean module system and wrote
