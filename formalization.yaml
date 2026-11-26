@@ -1,0 +1,266 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "A prime-square counterexample to Chowla's cosine conjecture"
+  description: >-
+    For a finite set A of positive integers let f_A(t) = sum over a in A of cos(2 pi a t).
+    Chowla conjectured in 1965 that there is an absolute constant c > 0 such that every
+    nonempty A satisfies min_t f_A(t) < -c sqrt(|A|) (Chowla's cosine problem; Erdős
+    Problem #510). This project is a complete Lean 4 / Mathlib formalization of a
+    counterexample from the manuscript "A prime-square counterexample to Chowla's cosine
+    conjecture": for every eps > 0 there are arbitrarily large finite sets A of positive
+    integers with f_A(t) > -eps sqrt(|A|) for every real t. Two theorems are compared:
+    `cosine_counterexample`, which states exactly this, and
+    `chowla_cosine_conjecture_false`, the negation of Chowla's conjecture. The proof
+    follows the manuscript. A binary profile given by horizontal slices of an annulus is
+    smoothed so that a Fourier multiplier in the logarithm of the radius (computed through
+    the Laplace and Mellin transforms of the Bessel function J_0 and Legendre duplication)
+    produces a family with nonnegative Fourier transform. Auxiliary circle coordinates make
+    the label frequencies primitive integer vectors, a Chinese remainder construction maps
+    them to multiplicatively independent integers, and characters modulo a prime square
+    with an explicit Gauss-sum identity and equidistributed phases realize the required
+    multipliers. Poisson summation over residue classes gives a lower bound for the
+    weighted cosine sum, and the weights are rounded to a set using Spencer's discrepancy
+    theorem, which is proved here from a partial-colouring lemma, together with a discrete
+    de la Vallée-Poussin interpolation bound. The proof uses only the axioms propext,
+    Classical.choice and Quot.sound.
+  authors:
+    - "Shengtong Zhang"
+  responsible_maintainers:
+    - "Shengtong Zhang"
+  license: "Apache-2.0"
+
+sources:
+  - title: "A prime-square counterexample to Chowla's cosine conjecture"
+    type: "paper"
+    id: "Unpublished manuscript (6 pages); not publicly available at the time of submission"
+    location: "Theorem 1 and its proof: Lemma 2 (Section 1), Lemma 3 (Section 2), Sections 3-5, Lemma 4 (Section 6)"
+    relationship: "formalizes"
+    note: >-
+      The formalization follows the architecture of this manuscript. The manuscript carries
+      no author list and has no public identifier, so it cannot be independently confirmed
+      at the time of submission. Places where the Lean proof argues differently from the
+      manuscript are listed under fidelity.divergences and in the README.
+  - title: "Some applications of a method of A. Selberg"
+    authors:
+      - "Sarvadaman Chowla"
+    type: "paper"
+    id: "J. Reine Angew. Math. 217 (1965), 128-132"
+    location: "p. 130, eq. (14)"
+    relationship: "background"
+    note: "States the conjecture that the compared theorem `chowla_cosine_conjecture_false` refutes."
+  - title: "Erdős Problem #510 (Chowla's cosine problem)"
+    type: "web discussion"
+    id: "https://www.erdosproblems.com/510"
+    relationship: "background"
+    note: "Current statement of the problem and summary of known bounds; lists the problem as open (checked November 2026)."
+  - title: "Sur le minimum d'une somme de cosinus"
+    authors:
+      - "Jean Bourgain"
+    type: "paper"
+    id: "Acta Arith. 45 (1986), 381-389; doi:10.4064/aa-45-4-381-389"
+    relationship: "background"
+    note: "First lower bound for the depth beyond powers of log |A|."
+  - title: "Negative values of cosine sums"
+    authors:
+      - "Imre Z. Ruzsa"
+    type: "paper"
+    id: "Acta Arith. 111 (2004), 179-186; doi:10.4064/aa111-2-6"
+    relationship: "background"
+    note: "Lower bound exp(c sqrt(log |A|)) for the depth."
+  - title: "Chowla's cosine problem"
+    authors:
+      - "Tom Sanders"
+    type: "paper"
+    id: "Israel J. Math. 179 (2010), 1-28; doi:10.1007/s11856-010-0071-4"
+    relationship: "background"
+  - title: "From small eigenvalues to large cuts, and Chowla's cosine problem"
+    authors:
+      - "Zhihan Jin"
+      - "Aleksa Milojević"
+      - "István Tomon"
+      - "Shengtong Zhang"
+    type: "paper"
+    id: "arXiv:2509.03490"
+    relationship: "background"
+    note: "First polynomial lower bound |A|^(1/10 - o(1)) for the depth, independently of Bedert."
+  - title: "Polynomial bounds for the Chowla Cosine Problem"
+    authors:
+      - "Benjamin Bedert"
+    type: "paper"
+    id: "arXiv:2509.05260"
+    relationship: "background"
+    note: "Polynomial lower bound |A|^(1/5 - o(1)) for the depth."
+  - title: "A Half-Constant Upper Bound for Chowla's Cosine Problem"
+    authors:
+      - "Bryan Bu"
+      - "Fayzan Khan"
+      - "Hyunjun Yi"
+      - "Atharv Jha"
+      - "Ishaan Chandupatla"
+      - "Madhav Nagpal"
+    type: "paper"
+    id: "arXiv:2610.17160"
+    relationship: "background"
+    note: "Constructions with depth (1/2 + o(1)) sqrt(|A|); consistent with Chowla's conjecture."
+  - title: "Six standard deviations suffice"
+    authors:
+      - "Joel Spencer"
+    type: "paper"
+    id: "Trans. Amer. Math. Soc. 289 (1985), 679-706"
+    relationship: "background"
+    note: "Discrepancy theorem used in the rounding step (Lemma 4); proved in this repository from a partial-colouring lemma rather than assumed."
+  - title: "NIST Digital Library of Mathematical Functions, Sections 10.9 and 10.22"
+    type: "other"
+    id: "https://dlmf.nist.gov/10.22.E43"
+    location: "Equations 10.9.1 and 10.22.43"
+    relationship: "background"
+    note: "Integral representation and Mellin transform of J_0 cited by the manuscript for Lemma 2; the needed identities are proved in this repository."
+
+related_formalizations: []
+
+classification:
+  arxiv:
+    - "math.CA"
+    - "math.NT"
+    - "math.CO"
+  msc2020:
+    - "42A05"
+    - "11L03"
+    - "11K38"
+    - "33C10"
+
+status:
+  scope: >-
+    Complete formalization of Theorem 1 of the manuscript and of the resulting negation of
+    Chowla's cosine conjecture. The quantitative form (1) of the manuscript, with
+    A contained in [1, ceil(P T^2)], |A| comparable to P/T and depth at most
+    C (log T) T^(-1/2) sqrt(|A|), is not exported as a separate theorem; the proof uses
+    estimates of this shape internally, with unspecified constants.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+    - "propext"
+    - "Classical.choice"
+    - "Quot.sound"
+  main_results:
+    - declaration: "cosine_counterexample"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms:
+        - "propext"
+        - "Classical.choice"
+        - "Quot.sound"
+      comparator_config: "comparator.json"
+    - declaration: "chowla_cosine_conjecture_false"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms:
+        - "propext"
+        - "Classical.choice"
+        - "Quot.sound"
+      comparator_config: "comparator.json"
+
+automation:
+  methods:
+    - method: "agent"
+      models:
+        - "claude-opus-5.5"
+      framework: "Cursor (agent mode with parallel subagents)"
+      tool_setup: >-
+        One orchestrating agent read the manuscript, wrote the shared definitions
+        (ChowlaOpus/Basic.lean, ChowlaOpus/Profile/Defs.lean) and split the proof into
+        component statements (ChowlaOpus/Statements.lean). It then launched 24 parallel
+        subagents running the same model; each proved one or two component files in
+        ChowlaOpus/Parts/ with shell access to Lean 4.36.0, Lake and Mathlib v4.36.0. The
+        orchestrator recompiled every component, checked for sorry and ran #print axioms,
+        assembled ChowlaOpus/Main.lean, and later ported all files to the Lean module system
+        and wrote the Challenge/Solution pair and this metadata.
+      cost:
+        wall_time: "about 2.5 hours from the start of the session to a complete build, plus about 1 hour of packaging"
+        hardware: "API-hosted model; Lean builds on one local macOS machine"
+      prompting_notes: >-
+        The human asked for a complete Lean formalization of Theorem 1 of the manuscript and
+        for heavy use of parallel agents. Each subagent received the shared definitions, its
+        target statement, the relevant part of the manuscript, and the restriction to the
+        three standard axioms. All Lean code was written by the agents; the human wrote none.
+  notes: >-
+    Shengtong Zhang directed the work and made the packaging decisions and is responsible
+    for the formalization; the mathematics comes from the manuscript cited in sources, and
+    the Lean code was produced by the AI agents described above.
+
+fidelity:
+  divergences: >-
+    (1) Only the qualitative Theorem 1 is a compared theorem; see status.scope.
+    (2) Chowla's conjecture is stated with "there exists t with f_A(t) < -c sqrt(|A|)" in place
+    of "min_t f_A(t) < -c sqrt(|A|)"; these are equivalent because f_A is continuous and
+    periodic, so the minimum is attained.
+    (3) Lemma 2: the Mellin identity is proved by three explicit Fubini interchanges with
+    Gamma-function integrals and Legendre duplication, instead of citing DLMF 10.22.43 and
+    continuing analytically; the bound Gs = O(e^{-2s}) comes from |J_0(r) - 1| <= r^2/4.
+    (4) Lemma 3 uses the manuscript's parameters h = T^-2 and X = T^2 and Fejér degree
+    J = ceil(T^8).
+    (5) The kernel character is defined as u -> psi(1 - u^(p-1)) with psi the standard additive
+    character of Z/p^2Z; this equals the manuscript's character chi_0 built from the Fermat
+    quotient.
+    (6) Phase approximation: instead of Haar equidistribution and approximation by
+    trigonometric polynomials, the proof averages an explicit nonnegative trigonometric
+    kernel over characters of the form xi^2 (automatically even), using orthogonality of
+    Dirichlet characters and a Cauchy-Schwarz bound for the constant term.
+    (7) Lemma 4: Spencer's theorem is proved (partial colouring via a Hoeffding bound and a
+    Jensen-type pigeonhole argument, then iteration) rather than cited, and the extension
+    from a mesh to the whole circle uses a discrete de la Vallée-Poussin interpolation
+    identity (constant 2 for meshes of at least 4N points) instead of Bernstein's inequality.
+    (8) Lean's Bochner integral of a non-integrable function is 0, so the label mean
+    ell(x) = (1/2) log(1 + x^-2) evaluates to 0 at x = 0; the proofs handle this point with
+    almost-everywhere arguments.
+
+review:
+  status: "agent-reviewed"
+  notes: >-
+    No human has reviewed the formal statements or proofs before submission. The
+    orchestrating agent (the same model as the subagents, so not an independent reviewer)
+    recompiled every component, confirmed that no sorry remains, checked #print axioms, and
+    compared the Challenge statements with Theorem 1 of the manuscript and with Chowla's
+    formulation of the conjecture. Correctness of the proof rests on the Lean kernel.
+
+alignment:
+  namespace: "ChowlaOpus"
+  statements:
+    - source: "Theorem 1"
+      lean: "cosine_counterexample (Challenge.lean, Solution.lean); ChowlaOpus.main_theorem"
+      module: "Challenge, Solution, ChowlaOpus.Main"
+      status: "proved"
+    - source: "Chowla's conjecture (Chowla 1965, eq. (14)) is false"
+      lean: "chowla_cosine_conjecture_false"
+      module: "Challenge, Solution"
+      status: "proved"
+    - source: "Lemma 2 (Bessel transform, multiplier m(tau))"
+      lean: "ChowlaOpus.j0Statement_holds, besselPlaneStatement_holds, multStatement_holds, mellinStatement_holds"
+      module: "ChowlaOpus.Parts.J0, ChowlaOpus.Parts.Mellin"
+      status: "proved"
+    - source: "Section 1 facts on the annulus slices B_s and ell(x)"
+      lean: "ChowlaOpus.annulusStatement_holds"
+      module: "ChowlaOpus.Parts.Annulus"
+      status: "proved"
+    - source: "Lemma 3 (finite profiles W and Q)"
+      lean: "ChowlaOpus.lemma3Statement_holds"
+      module: "ChowlaOpus.Parts.AsmA (with Bump, Fejer, Coeff, W, Q, Var)"
+      status: "proved"
+    - source: "Section 3 (separating label frequencies)"
+      lean: "ChowlaOpus.profileStatement_holds"
+      module: "ChowlaOpus.Parts.Aux3 (with Saw)"
+      status: "proved"
+    - source: "Section 4 (Chinese remainder construction, kernel character, identity (7), phases (8))"
+      lean: "ChowlaOpus.crtStatement_holds, kernelCharStatement_holds, rowSumStatement_holds, phaseStatement_holds"
+      module: "ChowlaOpus.Parts.CRT, KChar, Gauss, Phase"
+      status: "proved"
+    - source: "Section 5 (Poisson summation, bounds (9) and (10))"
+      lean: "ChowlaOpus.poissonStatement_holds, w9Statement_holds, w10Statement_holds, weightsStatement_holds"
+      module: "ChowlaOpus.Parts.Poisson, W9, W10, AsmB"
+      status: "proved"
+    - source: "Lemma 4 (rounding) and the final combination"
+      lean: "ChowlaOpus.partialColoringStatement_holds, spencerStatement_holds, meshStatement_holds, roundingStatement_holds, cosine_counterexample_of"
+      module: "ChowlaOpus.Parts.Partial, Spencer, Mesh, Rounding, MainOf"
+      status: "proved"
