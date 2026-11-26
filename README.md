@@ -8,12 +8,12 @@ The proofs use only the axioms `propext`, `Classical.choice` and `Quot.sound`, a
 
 ## The statements
 
-For a finite set `A` of positive integers write
+For a finite set $A$ of positive integers write
 
-  f_A(t) = ∑_{a ∈ A} cos(2π a t).
+$$f_A(t) = \sum_{a \in A} \cos(2\pi a t).$$
 
-Chowla conjectured in 1965 [2, p. 130, eq. (14)] that there is an absolute constant `c > 0`
-such that every nonempty `A` satisfies `min_t f_A(t) < -c √|A|`.
+Chowla conjectured in 1965 [2, p. 130, eq. (14)] that there is an absolute constant $c > 0$
+such that every nonempty $A$ satisfies $\min_t f_A(t) < -c\sqrt{|A|}$.
 
 `Challenge.lean` imports only Mathlib and states two theorems, which `Solution.lean` proves:
 
@@ -31,68 +31,73 @@ theorem chowla_cosine_conjecture_false :
 
 In words:
 
-* `cosine_counterexample` is Theorem 1 of [1]. For every `ε > 0` and every `N`
-  there is a finite set `A` of positive integers with at least `N` elements such that
-  `f_A(t) > -ε √|A|` for every real `t`. So there are arbitrarily large such sets.
-* `chowla_cosine_conjecture_false` says that no constant `c > 0` works in Chowla's
-  conjecture. Taking `ε = c` in Theorem 1 gives a nonempty set whose cosine sum never drops
-  below `-c √|A|`. The conjecture is stated with "there is a real `t` with
-  `f_A(t) < -c √|A|`". This is equivalent to `min_t f_A(t) < -c √|A|` because `f_A` is
-  continuous and `1`-periodic, so its minimum is attained.
+* `cosine_counterexample` is Theorem 1 of [1]. For every $\varepsilon > 0$ and every $N$
+  there is a finite set $A$ of positive integers with at least $N$ elements such that
+  $f_A(t) > -\varepsilon\sqrt{|A|}$ for every real $t$. So there are arbitrarily large such
+  sets.
+* `chowla_cosine_conjecture_false` says that no constant $c > 0$ works in Chowla's
+  conjecture. Taking $\varepsilon = c$ in Theorem 1 gives a nonempty set whose cosine sum
+  never drops below $-c\sqrt{|A|}$. The conjecture is stated with "there is a real $t$ with
+  $f_A(t) < -c\sqrt{|A|}$". This is equivalent to $\min_t f_A(t) < -c\sqrt{|A|}$ because
+  $f_A$ is continuous and $1$-periodic, so its minimum is attained.
 
 Conventions: `ℕ+` is Mathlib's type of positive integers, and `a : ℕ+` is cast to `ℝ`
 through `ℕ`. `A.card` is the number of elements of `A`, and `Real.sqrt` is the real square
-root. The angle `t` ranges over all of `ℝ`, which is the same as ranging over `ℝ/ℤ`.
+root. The angle $t$ ranges over all of $\mathbb{R}$, which is the same as ranging over
+$\mathbb{R}/\mathbb{Z}$.
 
 ## Relation to the literature
 
-For a finite nonempty set `A` of positive integers, define the *depth* of `A` as
+For a finite nonempty set $A$ of positive integers, define the *depth* of $A$ as
 
-  D(A) = −min_t f_A(t),
+$$D(A) = -\min_{t \in \mathbb{R}} f_A(t),$$
 
 the amount by which the cosine sum drops below zero. The depth is always positive, because
-`f_A` is continuous, has mean `0` over a period, and is not identically zero (`f_A(0) = |A|`).
-Chowla's cosine problem asks for the smallest depth of an `n`-element set,
+$f_A$ is continuous, has mean $0$ over a period, and is not identically zero
+($f_A(0) = |A|$). Chowla's cosine problem asks for the smallest depth of an $n$-element set,
 
-  K(n) = inf { D(A) : A ⊂ ℤ_{>0}, |A| = n }.
+$$K(n) = \inf \lbrace D(A) : A \subset \mathbb{Z}_{>0},\ |A| = n \rbrace.$$
 
-In this notation Chowla's conjecture says that `K(n) ≥ c√n` for some `c > 0` and all `n`.
-The problem is also Problem #510 on the Erdős Problems site [3]. Below, `c` and `C` denote
-positive constants, and the asymptotic notation `O`, `Ω`, `Θ` and `o` refers to
-`n = |A| → ∞`.
+In this notation Chowla's conjecture says that $K(n) \ge c\sqrt{n}$ for some $c > 0$ and all
+$n$. The problem is also Problem #510 on the Erdős Problems site [3]. Below, $c$ and $C$
+denote positive constants, and the asymptotic notation $O$, $\Omega$, $\Theta$ and $o$
+refers to $n = |A| \to \infty$.
 
-* **Lower bounds:**
-  * Bourgain [4] proved `K(n) ≥ exp((log n)^c)` for some `c > 0`, the first bound beyond
-    powers of `log n`.
-  * Ruzsa [5] improved this to `K(n) ≥ exp(c √log n)`.
-  * Sanders [6] proved, among other results, a polynomial bound when every element of `A`
-    is `O(n)`.
-  * The first polynomial bounds were proved independently by Jin, Milojević, Tomon and
-    Zhang [7], with exponent `1/10 − o(1)`, and by Bedert [8]. Bedert's first version gave
-    exponent `1/7`, and a later version gives `1/5 − o(1)`.
-  * These bounds have since been improved:
-    * Yip [9] refines the spectral method of [7] and obtains exponent `1/6.43`.
-    * Shankar [10] removes the `o(1)` loss and proves `K(n) ≥ c n^{1/5}`.
-    * Bu, Khan, Yi, Jha, Chandupatla and Nagpal [11] prove `D(A) ≥ c n^{1/4}` for
-      `n`-element sets `A ⊂ [1, Cn]`.
-    * Shankar [12] proves `K(n) = Ω((n / log 2n)^{1/4})`, the strongest general lower bound
-      we found.
-* **Upper bounds:** let `B` be a Sidon set and let `A` be the set of positive elements of
-  `B − B`. Then `|A| = |B|(|B| − 1)/2` and
+**Lower bounds.**
 
-    f_A(t) = (|∑_{b ∈ B} e^{2πibt}|² − |B|) / 2 ≥ −|B| / 2,
+* Bourgain [4] proved $K(n) \ge \exp((\log n)^c)$ for some $c > 0$, the first bound beyond
+  powers of $\log n$.
+* Ruzsa [5] improved this to $K(n) \ge \exp(c\sqrt{\log n})$.
+* Sanders [6] proved, among other results, a polynomial bound when every element of $A$ is
+  $O(n)$.
+* The first polynomial bounds were proved independently by Jin, Milojević, Tomon and
+  Zhang [7], with exponent $1/10 - o(1)$, and by Bedert [8]. Bedert's first version gave
+  exponent $1/7$, and a later version gives $1/5 - o(1)$.
+* These bounds have since been improved:
+  * Yip [9] refines the spectral method of [7] and obtains exponent $1/6.43$.
+  * Shankar [10] removes the $o(1)$ loss and proves $K(n) \ge c n^{1/5}$.
+  * Bu, Khan, Yi, Jha, Chandupatla and Nagpal [11] prove $D(A) \ge c n^{1/4}$ for
+    $n$-element sets $A \subset [1, Cn]$.
+  * Shankar [12] proves $K(n) = \Omega\bigl((n / \log 2n)^{1/4}\bigr)$, the strongest
+    general lower bound we found.
 
-  so `D(A) ≤ (1/√2 + o(1)) √|A|`. The construction of [11] lowers the constant: it gives
-  sets with `D(A) ≤ (1/2 + o(1)) √|A|`.
+**Upper bounds.** Let $B$ be a Sidon set and let $A$ be the set of positive elements of
+$B - B$. Then $|A| = |B|(|B| - 1)/2$ and
 
-Theorem 1 is consistent with all of these results. For each sufficiently large parameter `T`,
-the construction of [1] gives arbitrarily large sets `A` such that
+$$f_A(t) = \frac{1}{2}\left(\left|\sum_{b \in B} e^{2\pi i b t}\right|^2 - |B|\right) \ge -\frac{|B|}{2},$$
 
-  c₁ P/T ≤ |A| ≤ c₂ P/T  and  D(A) ≤ C (log T) T^{−1/2} √|A|,
+so $D(A) \le (1/\sqrt{2} + o(1))\sqrt{|A|}$. The construction of [11] lowers the constant: it
+gives sets with $D(A) \le (1/2 + o(1))\sqrt{|A|}$.
 
-where `P = p²` is a prime square and `c₁`, `c₂`, `C` are absolute constants. Choosing `T` with `C (log T) T^{−1/2} < ε` gives Theorem 1. So for
-every `c > 0` there are infinitely many `n` with `K(n) < c√n`, and `K(n) = Θ(√n)` is false.
-The lower bounds above that hold for all sets are `O(n^{1/4})`, far below this.
+Theorem 1 is consistent with all of these results. For each sufficiently large parameter $T$,
+the construction of [1] gives arbitrarily large sets $A$ such that
+
+$$c_1 \frac{P}{T} \le |A| \le c_2 \frac{P}{T} \quad \text{and} \quad D(A) \le C \frac{\log T}{\sqrt{T}} \sqrt{|A|},$$
+
+where $P = p^2$ is a prime square and $c_1$, $c_2$, $C$ are absolute constants. Choosing $T$
+with $C (\log T)/\sqrt{T} < \varepsilon$ gives Theorem 1. So for every $c > 0$ there are
+infinitely many $n$ with $K(n) < c\sqrt{n}$, and $K(n) = \Theta(\sqrt{n})$ is false. The lower
+bounds above that hold for all sets are $O(n^{1/4})$, far below this.
 
 The result and its proof are due to [1], and we make no independent claim of novelty or
 priority. A literature search of arXiv and the web in November 2026 found no earlier
@@ -106,37 +111,40 @@ published counterexample. We know of no other public formalization of this resul
 restates that theorem with the cosine sum written out. The shared definitions are in
 `ChowlaOpus/Basic.lean` and `ChowlaOpus/Profile/Defs.lean`.
 
-The proof follows [1] section by section.
+The proof follows [1] section by section. Throughout, $e(u) = e^{2\pi i u}$.
 
 1. **Lemma 2: the Bessel transform.** This is in `Parts/J0.lean` and `Parts/Mellin.lean`,
    which cover:
-   * the function `J₀`, its bounds and decay `|J₀(r)| ≤ 3/√r`, and its Laplace transform;
-   * the plane-wave formula (2) for `G_s`;
-   * the multiplier `m(τ) = 2^{iτ} Γ(1+iτ/2)/Γ(1−iτ/2)`, with `|m| = 1`;
-   * the identity `G̃(τ, x) = m(τ) B̃(τ, x)`.
+   * the function $J_0$, its bounds and decay $|J_0(r)| \le 3/\sqrt{r}$, and its Laplace
+     transform;
+   * the plane-wave formula (2) for $G_s$;
+   * the multiplier $m(\tau) = 2^{i\tau} \Gamma(1 + i\tau/2)/\Gamma(1 - i\tau/2)$, with
+     $|m| = 1$;
+   * the identity $\widetilde{G}(\tau, x) = m(\tau) \widetilde{B}(\tau, x)$.
 
    The identity is proved by three Fubini interchanges, Gamma integrals and Legendre
    duplication.
-2. **The annulus slices.** `Parts/Annulus.lean` proves the facts about `B_s` and
-   `ℓ(x) = ½ log(1 + x⁻²)` (with `∫ ℓ = π`), the `L¹` bounds and the periodization estimate.
-3. **Lemma 3: finite profiles `W` and `Q`.** The pieces are spread over several files:
-   * `Parts/Bump.lean` builds the bump `ρ = φ ⋆ φ` with `ρ̂ ≥ 0`.
+2. **The annulus slices.** `Parts/Annulus.lean` proves the facts about $B_s$ and
+   $\ell(x) = \frac{1}{2}\log(1 + x^{-2})$ (with $\int \ell = \pi$), the $L^1$ bounds and the
+   periodization estimate.
+3. **Lemma 3: finite profiles $W$ and $Q$.** The pieces are spread over several files:
+   * `Parts/Bump.lean` builds the bump $\rho = \varphi \ast \varphi$ with $\widehat{\rho} \ge 0$.
    * `Parts/Fejer.lean` proves the Fejér kernel estimates.
-   * `Parts/Coeff.lean` bounds the coefficients `b_l` and the mass `H`.
-   * `Parts/W.lean` gives the representation of `W` and the bound `0 ≤ W ≤ 1`.
-   * `Parts/Q.lean` proves that `Q̂ ≥ 0`.
-   * `Parts/Var.lean` proves the variance bound `V ≤ C (log T)/T³`.
+   * `Parts/Coeff.lean` bounds the coefficients $b_l$ and the mass $H$.
+   * `Parts/W.lean` gives the representation of $W$ and the bound $0 \le W \le 1$.
+   * `Parts/Q.lean` proves that $\widehat{Q} \ge 0$.
+   * `Parts/Var.lean` proves the variance bound $V \le C (\log T)/T^3$.
 
-   `Parts/AsmA.lean` combines them. The parameters are `h = T⁻²`, `X = T²` and Fejér degree
-   `J = ⌈T⁸⌉`.
+   `Parts/AsmA.lean` combines them. The parameters are $h = T^{-2}$, $X = T^2$ and Fejér
+   degree $J = \lceil T^8 \rceil$.
 4. **Section 3: separating the label frequencies.** `Parts/Saw.lean` covers the sawtooth
    coefficients, including Parseval and their Fejér averages. `Parts/Aux3.lean` covers the
    auxiliary circle coordinates, the Fejér smoothing in them, and the resulting
    finite-frequency profile.
 5. **Section 4: phases modulo a prime square.** This part has four files:
-   * `Parts/CRT.lean`: the linear form `L` whose values on the positive modes are positive
+   * `Parts/CRT.lean`: the linear form $L$ whose values on the positive modes are positive
      and multiplicatively independent.
-   * `Parts/KChar.lean`: an even character `χ₀` with `χ₀(1 + pt) = e(t/p)`.
+   * `Parts/KChar.lean`: an even character $\chi_0$ with $\chi_0(1 + pt) = e(t/p)$.
    * `Parts/Gauss.lean`: the row sums, including identity (7) and the Ramanujan sums.
    * `Parts/Phase.lean`: the phase approximation (8).
 6. **Section 5: all real angles.** `Parts/Poisson.lean` proves Poisson summation over
@@ -144,9 +152,9 @@ The proof follows [1] section by section.
    `Parts/W10.lean` the mass and variance estimates (10). `Parts/AsmB.lean` assembles the
    weights.
 7. **Lemma 4: rounding to a set.** `Parts/Partial.lean` proves a partial-colouring lemma,
-   and `Parts/Spencer.lean` iterates it to get Spencer's theorem [14]. `Parts/Mesh.lean` extends
-   bounds from a mesh to the whole circle. `Parts/Rounding.lean` does the dyadic rounding,
-   and `Parts/MainOf.lean` chooses the parameters and finishes the proof.
+   and `Parts/Spencer.lean` iterates it to get Spencer's theorem [14]. `Parts/Mesh.lean`
+   extends bounds from a mesh to the whole circle. `Parts/Rounding.lean` does the dyadic
+   rounding, and `Parts/MainOf.lean` chooses the parameters and finishes the proof.
 
 ### Where the Lean proof differs from [1]
 
@@ -155,19 +163,19 @@ The proof follows [1] section by section.
   constants.
 * **Lemma 2:** the Mellin identity is proved directly instead of citing [13, eq. 10.22.43]
   and continuing analytically.
-* **Kernel character:** it is defined as `u ↦ ψ(1 − u^{p−1})`, where `ψ` is the standard
-  additive character of `ℤ/p²ℤ`. This equals the character `χ₀` of [1], built from the
-  Fermat quotient.
+* **Kernel character:** it is defined as $u \mapsto \psi(1 - u^{p-1})$, where $\psi$ is the
+  standard additive character of $\mathbb{Z}/p^2\mathbb{Z}$. This equals the character
+  $\chi_0$ of [1], built from the Fermat quotient.
 * **Phase approximation:** the proof averages an explicit nonnegative trigonometric kernel
-  over characters of the form `ξ²`, which are automatically even. It uses orthogonality of
+  over characters of the form $\xi^2$, which are automatically even. It uses orthogonality of
   Dirichlet characters instead of Haar equidistribution and approximation by trigonometric
   polynomials.
 * **Lemma 4:** Spencer's theorem [14] is proved rather than cited.
 * **Mesh bound:** the extension from a mesh to the circle uses a discrete de la
-  Vallée-Poussin interpolation identity with constant 2, for meshes of at least `4N`
+  Vallée-Poussin interpolation identity with constant $2$, for meshes of at least $4N$
   points, instead of Bernstein's inequality.
-* **Integrals at `x = 0`:** in Lean the Bochner integral of a non-integrable function is
-  `0`, so `ℓ(0)` evaluates to `0`. The proofs treat this point with almost-everywhere
+* **Integrals at $x = 0$:** in Lean the Bochner integral of a non-integrable function is
+  $0$, so $\ell(0)$ evaluates to $0$. The proofs treat this point with almost-everywhere
   arguments.
 
 ## Authorship, AI involvement and review
@@ -227,7 +235,7 @@ Apache-2.0; see `LICENSE`.
 8. B. Bedert, Polynomial bounds for the Chowla cosine problem, arXiv:2509.05260 (2025).
 9. F. Yip, Lower bounds for the magnitude of the minimum eigenvalue of graphs with
    applications to MaxCut and Chowla's cosine problem, arXiv:2610.01657 (2026).
-10. A. Shankar, A log-free `n^{1/5}` bound for Chowla's cosine problem, arXiv:2609.05338
+10. A. Shankar, A log-free $n^{1/5}$ bound for Chowla's cosine problem, arXiv:2609.05338
     (2026).
 11. B. Bu, F. Khan, H. Yi, A. Jha, I. Chandupatla and M. Nagpal, A half-constant upper bound
     for Chowla's cosine problem, arXiv:2610.17160 (2026).
