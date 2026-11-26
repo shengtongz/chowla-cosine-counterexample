@@ -1,7 +1,8 @@
 # A counterexample to Chowla's cosine conjecture, in Lean
 
-This repository is a complete Lean 4 / Mathlib formalization of the manuscript [1], which
-gives a counterexample to Chowla's cosine conjecture [2].
+This repository is a complete Lean 4 / Mathlib formalization of the manuscript [1]
+([`manuscript/chowla_prime_square.pdf`](manuscript/chowla_prime_square.pdf)), which gives a
+counterexample to Chowla's cosine conjecture [2].
 
 **The manuscript [1], including the counterexample and its proof, was produced by the AI
 model Astra 6.2, prompted by Shengtong Zhang. The Lean formalization was then written by
@@ -272,13 +273,15 @@ check that `Solution.lean` proves the statements `Erdos510.erdos_510` and
 
 ## Licence
 
-Apache-2.0; see `LICENSE`.
+Apache-2.0; see `LICENSE`. This covers the Lean code, the documentation and the manuscript
+in `manuscript/`.
 
 ## References
 
 1. Astra 6.2 (AI model), prompted by Shengtong Zhang, *A prime-square counterexample to
-   Chowla's cosine conjecture*. Unpublished manuscript, 6 pages; not publicly available at
-   the time of writing.
+   Chowla's cosine conjecture*. Manuscript, 6 pages, included in this repository as
+   [`manuscript/chowla_prime_square.pdf`](manuscript/chowla_prime_square.pdf); not published
+   elsewhere.
 2. S. Chowla, Some applications of a method of A. Selberg, *J. Reine Angew. Math.* **217**
    (1965), 128–132.
 3. Erdős Problem #510, <https://www.erdosproblems.com/510>.
